@@ -1,0 +1,7 @@
+#
+#  $Id: STATUS,v 1.2 1999/06/11 13:37:12 joel Exp $
+#
+
+This set of tests is intended to demonstrate the capabilities
+of the RTEMS port of the FreeBSD TCP/IP stack.  In addition, these
+tests can be used to test a network device driver.

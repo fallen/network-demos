@@ -1,0 +1,27 @@
+#
+# $Id: README,v 1.4 2001/08/31 18:11:44 joel Exp $
+#
+
+A simple application to test some of the RTEMS/FreeBSD networking code.
+
+    **************************
+    *          NOTES         *
+    **************************
+
+BE SURE TO LOCALIZE networkconfig.h.  FAILURE TO DO SO MAY PROVOKE YOUR
+NETWORK ADMINISTRATOR TO THE POINT WHERE VICIOUS ATTACKS WILL BE MADE
+UPON YOU.
+
+Once this program is running on the target machine, you can test
+the network code by:
+
+ Typing commands at the target console:
+    - show network statistics
+    - transmit TCP packets
+    - transmit UDP packets
+    Run `telnet target_machine 24742' on another machines.
+ Everything you type should be echoed back and noted on
+ the target console.
+ You can run more than one telnet session at once.
+ You can use port number 24743 as well.
+

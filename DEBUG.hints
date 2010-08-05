@@ -1,0 +1,11 @@
+#
+#  $Id: DEBUG.hints,v 1.2 1998/08/21 15:36:09 joel Exp $
+#
+
+Debugging Hints
+===============
+For debugging, I'd suggest breakpoints in the socket receive and transmit  
+tasks to trace where you're running.  Also, if you have a LANalyzer or  
+workstation with `snoop' capability set it up to show all packets to/from the  
+hardware (Ethernet) address of your target machine.
+

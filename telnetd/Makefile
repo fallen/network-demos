@@ -1,0 +1,63 @@
+#
+#  $Id: Makefile,v 1.3 2009/05/13 18:55:07 joel Exp $
+#
+
+SAMPLE=telnetd
+PGM=${ARCH}/$(SAMPLE).exe
+
+MANAGERS=all
+
+# C source names, if any, go here -- minus the .c
+C_FILES=init.c
+C_O_FILES=$(C_FILES:%.c=${ARCH}/%.o)
+
+H_FILES=
+
+DOCTYPES=
+DOCS=$(DOCTYPES:%=$(SAMPLE).%)
+
+SRCS=$(DOCS) $(C_FILES)
+OBJS=$(C_O_FILES)
+
+PRINT_SRCS=$(DOCS)
+
+include $(RTEMS_MAKEFILE_PATH)/Makefile.inc
+include $(RTEMS_CUSTOM)
+include $(PROJECT_ROOT)/make/leaf.cfg
+
+#
+# (OPTIONAL) Add local stuff here using +=
+#
+
+override DEFINES  +=
+CPPFLAGS +=
+CFLAGS_LD +=
+CFLAGS_OPTIMIZE_V   +=
+CFLAGS_DEBUG_V   += -v -qrtems_debug
+
+LD_PATHS +=
+override LD_LIBS  += -ltelnetd
+
+CFLAGS   += 
+
+#
+# Add your list of files to delete here.  The config files
+#  already know how to delete some stuff, so you may want
+#  to just run 'make clean' first to see what gets missed.
+#  'make clobber' already includes 'make clean'
+#
+
+CLEAN_ADDITIONS += 
+CLOBBER_ADDITIONS +=
+
+all:	${ARCH} $(SRCS) $(OBJS) $(PGM)
+
+${PGM}: $(ARCH) $(OBJS) $(LINK_FILES)
+	$(make-exe)
+
+${ARCH}/init.o: ${ARCH} init.c
+
+# Install the program(s), appending _g or _p as appropriate.
+# for include files, just use $(INSTALL)
+install:  all
+	$(INSTALL_VARIANT) -m 555 ${PGM} ${PROJECT_RELEASE}/tests

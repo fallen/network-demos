@@ -1,0 +1,7 @@
+*.swp
+FilesystemImage
+FilesystemImage.c
+FilesystemImage.h
+o-optimize
+stamp-index-html
+

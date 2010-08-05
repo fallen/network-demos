@@ -1,0 +1,35 @@
+#
+# $Id: README,v 1.2 2001/08/31 18:11:43 joel Exp $
+#
+
+This directory contains a set of network tests and demonstrations
+programs.  
+
+    netdemo  - simplest test, echos data on sockets
+    dnstest  - test of DNS client
+    http     - test of GoAhead web server
+    netlink  - link only test to evaluate code space requirement
+               of network stack, ftpd, and httpd
+    ntp      - test of network time protocol client
+    rpc_demo - test of RPC library
+    select   - test of select() routine functionality
+    tftpTest - test of TFTP (Trivial FTP) client filesystem 
+    ttcp     - TTCP throughput test
+
+The file networkconfig.h MUST be configured to reflect your local
+network according to the included Configuration Notes.
+
+CONFIGURATION NOTES
+===================
+
+1. Make sure you change the definition of MY_ETHERNET_ADDRESS in 
+   networkconfig.h before you try to use any of the network
+   demonstration programs.
+
+2. If you do not use BOOTP (i.e. the `#define USE_BOOTP 1' in init.c is
+   removed), make sure you change the definition of MY_INTERNET_ADDRESS
+   before you try to use the programs.
+
+FAILURE TO FOLLOW THE ABOVE INSTRUCTIONS MAY PROVOKE YOUR NETWORK
+ADMINISTRATOR TO THE POINT WHERE VICIOUS ATTACKS WILL BE MADE UPON YOU.
+

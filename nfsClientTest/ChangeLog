@@ -1,0 +1,41 @@
+2009-05-13	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Allow overrides from invoking environment.
+
+2009-05-12	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: Now build with libbsdport.
+
+2007-11-09	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: bin2c now rtems-bin2c.
+
+2007-09-25	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* .cvsignore, Makefile, init.c: Switch to using rtems-bin2c for initial
+	filesystem image.
+
+2007-07-18	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Make the NFS server, remote filesystem, and directory to look
+	at configurable.
+
+2007-07-18	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* ChangeLog, init.c: Clean up and now works on PowerPC/ep5200.
+
+2007-07-18	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Clean up and now works on ep5200.
+	* mon.c: New file.
+
+2007-07-16	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* ChangeLog, rootfs/etc/host.conf, rootfs/etc/hosts: New files.
+
+2007-07-16	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	Initial add of NFS Client test.
+	* .cvsignore, Makefile, dirutils.c, init.c, rootfs/rtems_logo.jpg:
+	New files.
+

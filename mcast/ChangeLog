@@ -1,0 +1,30 @@
+2009-05-13	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Allow overrides from invoking environment.
+
+2009-05-12	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: Now build with libbsdport.
+
+2008-02-05	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* README: Fix typo.
+
+2007-11-09	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: bin2c now rtems-bin2c.
+
+2007-09-25	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* mcast.c: Remove warning.
+
+2007-09-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* .cvsignore: New file.
+
+2007-09-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* ChangeLog, Makefile, README, init.c, listener.c, mcast.c,
+	mcast_params.h, mcast_route.c, rootfs/etc/host.conf,
+	rootfs/etc/hosts: New files.
+

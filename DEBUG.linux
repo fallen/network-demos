@@ -1,0 +1,12 @@
+#
+#  $Id: DEBUG.linux,v 1.1 1998/07/30 22:36:04 joel Exp $
+#
+
+TCPDUMP
+=======
+On Linux, you can use the tcpdump utility to examine packets.  Something 
+like this:
+
+tcpdump -i eth0
+
+tcpdump can filter packets.  See the man page for details.

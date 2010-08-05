@@ -1,0 +1,52 @@
+2009-05-13	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Allow overrides from invoking environment.
+
+2009-05-12	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: Now build with libbsdport.
+
+2008-08-21	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* ttcp_orig/ttcp.c: Fix warning.
+
+2007-09-25	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* .cvsignore: New file.
+
+2007-09-25	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Build native ttcp as side-effect of main build.
+	* rtems_ttcp.c: Fix warning.
+
+2007-08-16	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Change clock tick to 1 millisecond.
+	* rtems_ttcp.c: Add CPU usage reporting.
+	* ttcp_orig/ttcp.c: Add -m option for delaying between writes.
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: More warnings removed.
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* rtems_ttcp.c, ttcp_orig/ttcp.c: Now compiles reasonably cleanly with
+	CVS head.
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: confdefs.h should be rtems/confdefs.h
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: Replace CONFIGURE_TEST_XXX with CONFIGURE_APPLICATION_XXX.
+
+2003-01-28	Joel Sherrill <joel@OARcorp.com>
+
+	* init.c: Increase number of file descriptors and use IMFS instead of
+	mini-IMFS as filesystem.
+
+2000-12-14	Joel Sherrill <joel@OARcorp.com>
+
+	* ChangeLog: New file.

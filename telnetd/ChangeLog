@@ -1,0 +1,56 @@
+2010-07-04	Joel Sherrill <joel.sherrilL@OARcorp.com>
+
+	* init.c: Remove include of rtems_webserver.h.
+
+2009-05-14	Sebastian Huber <sebastian.huber@embedded-brains.de>
+
+	* init.c: Provide custom shell environment.
+
+2009-05-13	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Allow overrides from invoking environment.
+
+2009-05-12	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* Makefile, init.c: Now build with libbsdport.
+
+2009-05-05	Sebastian Huber <sebastian.huber@embedded-brains.de>
+
+	* init.c: Enable shell login checks.
+
+2009-04-14	Sebastian Huber <sebastian.huber@embedded-brains.de>
+
+	* init.c: Updated telnet demon initialization.
+
+2008-10-15	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	PR 1331/networking
+	* init.c: Improve comments and explanation of options to
+	rtems_telnetd_initialize.
+
+2008-09-17	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Rename STACK_CHECKER_ON to more appropriate
+	CONFIGURE_STACK_CHECKER_ENABLED.
+
+2008-05-22	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Add shell configuration.
+
+2008-02-05	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Now works.
+
+2007-12-19	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: Shell now has some commands that require filesystems with
+	bdbuf support.
+
+2007-11-09	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Test improved.
+
+2007-09-25	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* .cvsignore, ChangeLog, Makefile, init.c: New files.
+

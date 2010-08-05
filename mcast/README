@@ -1,0 +1,52 @@
+#
+#  $Id: README,v 1.2 2008/02/05 21:45:54 joel Exp $
+#
+
+This directory contains a very simple multicast demo program.  There
+are multiple multicast demo programs on the Internet and this program
+is a combination of those.
+
+Native Programs
+===============
+Two native programs are built as a side-effect of the RTEMS make.
+They are listener and mcast.
+
++ listener is a pure listener
+
++ mcast sends and receives data and is the same program run on the 
+  RTEMS target
+
+
+Driver Requirements
+===================
++ NIC must set IFF_MULTICAST bit in if_flags during attach
+
+  ifp->if_flags   = IFF_BROADCAST | IFF_MULTICAST;
+
++ NIC must support SIOCADDMULTI and SIOCDELMULTI ioctls.
+
+    case SIOCADDMULTI:
+    case SIOCDELMULTI: {
+      struct ifreq* ifr = (struct ifreq*) data;
+      error = (command == SIOCADDMULTI)
+                  ? ether_addmulti(ifr, &sc->arpcom)
+                  : ether_delmulti(ifr, &sc->arpcom);
+       
+       if (error == ENETRESET) {
+         if (ifp->if_flags & IFF_RUNNING)
+           error = // driver specific routine to adjust filtering
+       }
+       break;
+    }
+
+  In some drivers, there is no need to adjust any driver specific 
+  filtering.  In this case, set error = 0 in the above code.
+
+GNU/Linux
+=========
+You will have to have a route in place.  Something like this command should
+work if you adjust the 192.168.1.244 to match your IP address and adjust the
+239.9.8.0 to match the multicast address used in mcast_params.h:
+
+/sbin/route  add -net 239.9.8.0  netmask 255.255.255.0 gw 192.168.1.244 dev eth0
+

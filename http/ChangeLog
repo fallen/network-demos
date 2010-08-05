@@ -1,0 +1,161 @@
+2010-06-17	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Remove include of rtems_webserver.h
+
+2009-11-23	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile, goahead_index.html, init.c, shttpd_ext.c,
+	shttpd_index.html: Add Mongoose HTTPD support.
+	* mongoose_ext.c, mongoose_index.html: New files.
+
+2009-05-13	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile, init.c, system.h: Allow overrides from invoking
+	environment. Also move RTEMS Configuration to bottom of init.c.
+
+2009-05-12	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* Makefile: Now build with libbsdport.
+
+2009-02-10	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Fix typo.
+
+2008-09-17	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Rename STACK_CHECKER_ON to more appropriate
+	CONFIGURE_STACK_CHECKER_ENABLED.
+
+2008-09-12	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: Eliminate use of boolean type. Use C99 bool.
+
+2008-08-21	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Fix missing initializers warning.
+
+2008-08-20	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* shttpd_ext.c: Fix warning.
+
+2007-12-06	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* Makefile, init.c: Make sure POSIX threading is enabled if using
+	GoAhead.
+
+2007-11-09	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: bin2c now rtems-bin2c.
+
+2007-11-06	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* Makefile: No use of objdump.
+
+2007-09-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Cleanup.
+
+2007-09-07	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* shttpd_index.html: Fix URL for shttpd.
+
+2007-09-07	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* goahead_index.html: This is not preprocessed so hard code name.
+	* init.c: Simple HTTPD is using ~39K stack space with this test.
+	Make the stack for the SHTTPD server 48K.
+
+2007-09-06	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* shttpd_ext.c: Use new name.
+
+2007-09-06	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile, init.c, rootfs/.cvsignore: Add some dynamic content.
+	Can now look at cpu usage, reset cpu usage and print a stack
+	usage report.
+	* goahead_index.html, shttpd.png, shttpd_ext.c, shttpd_index.html:
+	New files.
+	* index.html.in: Removed.
+
+2007-09-04	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Remove TARFILE_XXX macros.
+
+2007-09-04	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Use bin2c to more reliably turn the tarfile into a
+	linkable object file. Ignore .cvsignore when making tarfile.
+	* init.c: Clean up tarfile symbol definitions.
+	* .cvsignore, rootfs/.cvsignore: New files.
+
+2007-08-16	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Account for -B architecture option.
+
+2007-07-18	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Eliminate unneeded temp.o
+
+2007-07-12	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* init.c: Account for adding port to shttpd initialization.
+
+2007-07-12	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* ChangeLog, Makefile, init.c: No switchable from GoAhead to SHTTPD but
+	defaults to SHTTPD. The displayed index.html will indicate which
+	httpd implementation is enabled. The user should edit the Makefile to
+	switch settings.
+	* index.html.in: New file.
+	* rootfs/index.html: Removed.
+
+2007-07-12	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile, init.c: No switchable from GoAhead to SHTTPD but defaults
+	to SHTTPD. The displayed index.html will indicate which httpd
+	implementation is enabled. The user should edit the Makefile to
+	switch settings.
+	* index.html.in: New file.
+	* rootfs/index.html: Removed.
+
+2007-07-11	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Make slightly smarter on LD arguments.  Do not pick
+	up CVS files in tarball.
+	* init.c: Turn off tracing on GoAhead.  More debug.
+	* rootfs/etc/hosts: Match OAR setup for EP5200.
+	* rootfs/index.html: Cleanup and use RTEMS Logo.
+	* rootfs/rtems_logo.jpg: New files.
+	* rootfs/web/index.html: Removed.
+
+2007-06-22	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* Makefile, init.c: Clean up. Make name of TARFILE related symbols
+	conditional based upon architecture. Change way desired object format
+	is determined so all BSPs compile this test.
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* Makefile: Remove tarfile when make clean.
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: More warnings removed.
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* Makefile, init.c, system.h: Now compiles reasonably cleanly with CVS
+	head.
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c, system.h: confdefs.h should be rtems/confdefs.h
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* init.c: Replace CONFIGURE_TEST_XXX with CONFIGURE_APPLICATION_XXX.
+
+2000-12-14	Joel Sherrill <joel@OARcorp.com>
+
+	* ChangeLog: New file.

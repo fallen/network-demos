@@ -1,0 +1,26 @@
+CFLAGS += -g
+
+all: server rprintmsg
+
+rprintmsg: rprintmsg.o msg_clnt.o
+	$(CC) $(CFLAGS) -o rprintmsg rprintmsg.o msg_clnt.o 
+
+server: msg_main.o msg_proc.o
+	$(CC) $(CFLAGS) -o server msg_main.o msg_proc.o
+
+clean:
+	rm -f rprintmsg server \
+		msg_main.o msg_server.o msg_proc.o \
+		rprintmsg.o msg_clnt.o \
+		msg_server.h msg_clnt.c msg.h
+
+msg_main.o: msg.h msg_server.h
+
+msg.h: msg.x
+	rpcgen -h msg.x >msg.h
+
+msg_server.h: msg.x
+	rpcgen -m msg.x >msg_server.h
+
+msg_clnt.c: msg.x
+	rpcgen -l msg.x >msg_clnt.c

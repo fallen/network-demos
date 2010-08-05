@@ -1,0 +1,58 @@
+INTRODUCTION
+============
+Example RPC server and client.
+
+The test programs are symmetrical:
+ - The client runs on the host machine or on the RTEMS target.
+ - The server runs on the host machine or on the RTEMS target.
+
+
+BUILDING
+========
+You must have rpcgen installed on your host machine.
+
+You must build the host tools first:
+	make -f Makefile.host
+
+Then you can build the RTEMS version of the server
+	make
+or you can buile the RTEMS version of the client
+	make SERVER=hostname
+where hostname is the name of the machine running the RPC server.
+
+
+RUNNING
+=======
+1) Server on RTEMS machine, client on host machine:
+	Download and run the server code on the RTEMS machine
+	Run the client on the host machine
+		./rprintmsg rtems_hostname "Some message to print"
+
+2) Server on host machine, client on RTEMS machine:
+	Start server on host machine
+		./server
+	Download and run the client code on the RTEMS machine
+
+
+CHANGING
+========
+If you want to try out more or different remote procedures:
+	1) Make the changes to msg.x.
+	2) Make the corresponding server changes to msg_proc.c.
+	3) Make the corresponding client changes to rprintmsg.c.
+
+
+FILES
+=====
+init.c      - RTEMS configuration/initial task.
+msg.x       - Source file for rpcgen.
+msg_main.c  - Server main routine -- RTEMS or host.
+msg_proc.c  - Example implementation of RPC server-side routines.
+rprintmsg.c - Client main routine -- RTEMS or host.
+
+
+CLEANUP
+=======
+To clean up the results of the build process:
+	make clean
+	make -f Makefile.host clean

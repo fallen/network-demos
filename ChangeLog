@@ -1,0 +1,180 @@
+2010-02-12	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* ttcp/rtems_ttcp.c: Update timeval usage.
+
+2009-11-13	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* VERSION: Updated to network-demos-4.9.3.
+
+2009-05-13	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig-qemu.h: Now works on qemu with fxp driver in RTEMS, the
+	newer version in libbsdport, and on the real NIC in the Winsystems PC
+	in RTEMS Lab.
+
+2009-02-10	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig-qemu.h: Add option for qemu to use PCI i82551 NIC.
+
+2008-09-18	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* networkconfig.h: Revert previous patch. Use loopback configuration
+	only.
+
+2008-09-17	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig-mpc8313erdb.h, networkconfig.h: Rename STACK_CHECKER_ON
+	to more appropriate CONFIGURE_STACK_CHECKER_ENABLED.
+
+2008-08-21	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig-mpc8313erdb.h: New file.
+
+2008-08-20	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* networkconfig-qemu.h, networkconfig.h: Add missing initializers.
+
+2008-02-05	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig-icecube.h, networkconfig-qemu.h, networkconfig.h:
+	Updated to include new fields and expand tabs.
+
+2007-09-25	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Added telnetd test.
+
+2007-09-25	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig-icecube.h: Fix MAC address and typo.
+
+2007-09-19	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* Makefile: Add mcast.
+
+2007-09-14	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig.h: Loopback only network configuration tweaked to have
+	a hostname.
+
+2007-09-14	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig.h: Loopback only network configuration. Use one of the
+	real ones as an example.
+
+2007-09-07	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig-qemu.h: Disable DHCP and use static IP.
+	* networkconfig.h: Use only loopback so tests can run OK on any target
+	even if they can't do anything.
+	* networkconfig-icecube.h: New file.
+
+2007-08-07	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* VERSION: Updated to network-demos-4.7.99.2.
+
+2007-07-18	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig-qemu.h: New file.
+
+2007-07-18	Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* networkconfig.h: Make the NFS server, remote filesystem, and
+	directory to look at configurable.
+
+2007-06-22	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* Makefile: Remove netlink. It appeared to be a hacked copy of http.
+	* netlink/ChangeLog, netlink/Makefile, netlink/index.html,
+	netlink/init.c, netlink/networkconfig.h, netlink/system.h: Removed.
+
+2007-06-21	Joel Sherrill <joel.sherrill@OARcorp.com>
+
+	* Makefile: New file.
+
+2007-03-13	Joel Sherrill <joel@OARcorp.com>
+
+	* VERSION: Updated to network-demos-4.7.99.1.
+
+2005-09-02	Joel Sherrill <joel@OARcorp.com>
+
+	* VERSION: Updated to network-demos-4.6.99.2.
+
+2003-09-18	Joel Sherrill <joel@OARcorp.com>
+
+	PR 493/networking
+	* dnstest/init.c, http/Makefile, http/init.c, http/system.h,
+	netdemo/init.c, netlink/init.c, ntp/init.c, select/init.c,
+	select/test.c, tftpTest/init.c, tftpTest/test.c, ttcp/init.c,
+	ttcp/rtems_ttcp.c: Made all the tests compile and eliminated warnings
+	except in the ttcp_orig code.
+	* Makefile: New file.
+	* netlink/system.h: Removed.
+
+2003-07-03	Joel Sherrill <joel@OARcorp.com>
+
+	* VERSION: Updated to network-demos-4.6.0pre4.
+
+2003-02-11	Joel Sherrill <joel@OARcorp.com>
+
+	* VERSION: Updated to network-demos-4.6.0pre1.
+
+2003-09-18	Jay Monkman <jtm@smoothsmoothie.com>
+
+	PR 494/networking
+	* Changed Makefile to not use objcopy to create a linkable
+        object file from the tar file. Instead, ld links it in
+        directly.
+
+2003-09-18	Joel Sherrill <joel@OARcorp.com>
+
+	PR 493/networking
+	* dnstest/init.c, http/Makefile, http/init.c, http/system.h,
+	netdemo/init.c, netlink/init.c, ntp/init.c, select/init.c,
+	select/test.c, tftpTest/init.c, tftpTest/test.c, ttcp/init.c,
+	ttcp/rtems_ttcp.c: Made all the tests compile and eliminated warnings
+	except in the ttcp_orig code.
+	* Makefile: New file.
+	* netlink/system.h: Removed.
+
+2003-07-03	Joel Sherrill <joel@OARcorp.com>
+
+	* VERSION: Updated to network-demos-4.6.0pre4.
+
+2003-02-11	Joel Sherrill <joel@OARcorp.com>
+
+	* VERSION: Updated to network-demos-4.6.0pre1.
+
+2003-01-28	Joel Sherrill <joel@OARcorp.com>
+
+	* VERSION: Updated to network-demos-20030128.
+
+2002-10-21	Joel Sherrill <joel@OARcorp.com>
+
+	* VERSION: Updated to network-demos-20021018.
+
+2002-10-18	Joel Sherrill <joel@OARcorp.com>
+
+	* dnstest/init.c, netdemo/init.c, netlink/init.c, ntp/init.c,
+	rpc_demo/init.c, select/init.c, tftpTest/init.c, ttcp/init.c:
+	define CONFIGURE_LIBIO_MAXIMUM_FILE_DESCRIPTORS to 20 for enough
+	sockets and CONFIGURE_USE_IMFS_AS_BASE_FILESYSTEM even if not
+	absolutely needed for networking.
+
+2001-08-30	Joel Sherrill <joel@OARcorp.com>
+
+	* SUPPORT: New file.
+
+2001-08-30	Joel Sherrill <joel@OARcorp.com>
+
+	* README, networkconfig.h, netdemo/README, tftpTest/test.c: Merged
+	missing stuff from 4.5 branch.
+	* http/Makefile, http/init.c: Minor modifications to improve
+	buildability.
+
+2000-12-14	Eric Norum <eric.norum@usask.ca>
+
+	* networkconfig.h: Default to using bootp host for tftp test.
+
+2000-12-14	Joel Sherrill <joel@OARcorp.com>
+
+	* ChangeLog: New file.

@@ -1,0 +1,12 @@
+#
+#  $Id: README,v 1.4 1998/08/21 13:26:05 joel Exp $
+#
+
+This directory contains an RTEMS application for measuring TCP/UDP
+network throughput.   The ttcp_orig subdirectory contains the original
+UNIX program which can be compiled and run on your host machine.
+
+One noteworthy item is that I was able to get the UNIX test program
+running under RTEMS with no changes to the test program itself.  The
+entire UNIX source file is included, without changes, into the RTEMS
+source file.
