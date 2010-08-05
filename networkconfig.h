@@ -24,17 +24,17 @@
 /*
  * Loopback interface
  */
-extern int rtems_bsdnet_loopattach();
+extern int rtems_ne_driver_attach();
 
 /*
  * Default network interface
  */
 static struct rtems_bsdnet_ifconfig netdriver_config = {
-  "lo0",                    /* name */
-  rtems_bsdnet_loopattach,  /* attach function */
+  "minimac0",                    /* name */
+  rtems_minimac_driver_attach,  /* attach function */
   NULL,                     /* No more interfaces */
-  "127.0.0.1",              /* IP address */
-  "255.0.0.0",              /* IP net mask */
+  "192.168.101.100",              /* IP address */
+  "255.255.255.0",              /* IP net mask */
   NULL,                     /* Driver supplies hardware address */
   0,                        /* Use default driver parameters */
   0,                        /* default efficiency multiplier */
@@ -51,11 +51,11 @@ struct rtems_bsdnet_config rtems_bsdnet_config = {
   &netdriver_config,
   NULL,                /* do not use bootp */
   0,                   /* Default network task priority */
-  0,                   /* Default mbuf capacity */
-  0,                   /* Default mbuf cluster capacity */
+  256 * 1024,                   /* Default mbuf capacity */
+  256 * 1024,                   /* Default mbuf cluster capacity */
   "rtems",             /* Host name */
   "nodomain.com",      /* Domain name */
-  "127.0.0.1",         /* Gateway */
+  "192.168.101.254",         /* Gateway */
   "127.0.0.1",         /* Log host */
   {"127.0.0.1" },      /* Name server(s) */
   {"127.0.0.1" },      /* NTP server(s) */
@@ -74,8 +74,8 @@ struct rtems_bsdnet_config rtems_bsdnet_config = {
 #define RTEMS_TFTP_TEST_HOST_NAME "BOOTP_HOST"
 #define RTEMS_TFTP_TEST_FILE_NAME "BOOTP_FILE"
 #else
-#define RTEMS_TFTP_TEST_HOST_NAME "XXX.YYY.ZZZ.XYZ"
-#define RTEMS_TFTP_TEST_FILE_NAME "tftptest"
+#define RTEMS_TFTP_TEST_HOST_NAME "192.168.101.254"
+#define RTEMS_TFTP_TEST_FILE_NAME "README"
 #endif
 
 /*
@@ -83,7 +83,7 @@ struct rtems_bsdnet_config rtems_bsdnet_config = {
  * 
  * NFS server/path to mount and a directory to ls once mounted
  */
-#define RTEMS_NFS_SERVER      "192.168.1.210"
+#define RTEMS_NFS_SERVER      "192.168.101.254"
 #define RTEMS_NFS_SERVER_PATH "/home"
 #define RTEMS_NFS_LS_PATH     "/mnt/nfstest"
 #endif /* _RTEMS_NETWORKCONFIG_H_ */
