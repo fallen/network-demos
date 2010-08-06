@@ -19,17 +19,24 @@
 #define OP_ACK    4
 #define OP_ERROR  5
 
+#define MAX_DATA_SIZE 512
+#define OPCODE_SIZE sizeof(uint16_t)
+#define BLOCKNUM_SIZE sizeof(uint16_t)
+#define END_OF_STRING_SIZE  sizeof('\0')
+
+#define TFTP_PORT 69
+
 // Who is the tftp server ?
 
 #define TFTP_SERVER "192.168.101.254"
 
 // What file to read ?
 
-#define TFTP_FILENAME "init.c"
+#define TFTP_FILENAME "sample.data"
 
 struct tftp_packet {
   uint16_t opcode;
-  uint8_t data[515];
+  uint8_t data[MAX_DATA_SIZE + BLOCKNUM_SIZE];
 } __attribute__((packed));
 
 static void set_nonblock(int sock)
@@ -48,12 +55,12 @@ static void tftp_read(int sock, struct sockaddr_in *farAddr) {
   
   packet.opcode = OP_READ;
   strcpy(packet.data, TFTP_FILENAME);
-  strcpy(packet.data + strlen(TFTP_FILENAME) + 1, "octet");
+  strcpy(packet.data + strlen(TFTP_FILENAME) + END_OF_STRING_SIZE, "octet");
   
-  datasize = strlen(TFTP_FILENAME) + 1 + strlen("octet") + 1;
+  datasize = strlen(TFTP_FILENAME) + 2*END_OF_STRING_SIZE + strlen("octet");
   size = datasize + sizeof(packet.opcode);
 
-  //printf("size = %d\n", size);
+//printf("size = %d\n", size);
   ret = sendto(sock, &packet, size, 0, (struct sockaddr *)farAddr, sizeof(struct sockaddr_in)); 
   if (ret == -1)
     perror("sendto:");
@@ -63,17 +70,17 @@ static void tftp_read(int sock, struct sockaddr_in *farAddr) {
 static void tftp_ack(int sock, struct sockaddr_in *farAddr, uint16_t blocknum) {
   struct tftp_packet packet;
   int ret;
-//  printf("Nous sommes dans la fonction d'ack !\n");
-//  printf("sock = %d, &farAddr = 0x%08x, blocknum = %d\n", sock, farAddr, blocknum);
+//printf("Nous sommes dans la fonction d'ack !\n");
+//printf("sock = %d, &farAddr = 0x%08x, blocknum = %d\n", sock, farAddr, blocknum);
   packet.opcode = OP_ACK;
   packet.data[0] = (uint8_t)(blocknum >> 8);
   packet.data[1] = (uint8_t)blocknum;
   
-  ret = sendto(sock, &packet, sizeof(packet.opcode) + sizeof(uint16_t), 0, (struct sockaddr *)farAddr, sizeof(struct sockaddr_in));
+  ret = sendto(sock, &packet, OPCODE_SIZE + BLOCKNUM_SIZE, 0, (struct sockaddr *)farAddr, sizeof(struct sockaddr_in));
   if (ret == -1)
     perror("sendto:");
   assert(ret != -1);
-//  printf("La fonction d'ack a fini, avec ret = %d\n", ret);
+//printf("La fonction d'ack a fini, avec ret = %d\n", ret);
 
 }
 
@@ -96,32 +103,32 @@ rtems_task Init (rtems_task_argument ignored)
       perror("socket:");
     assert(sock != -1);
 
-//  set_nonblock(sock);
+//set_nonblock(sock);
 
   memset(&farAddr, 0, sizeof farAddr);
   farAddr.sin_family = AF_INET;
-  farAddr.sin_port = htons(69);
+  farAddr.sin_port = htons(TFTP_PORT);
   farAddr.sin_addr.s_addr = htonl(inet_addr(TFTP_SERVER));
 
   printf("Sending the READ request...\n");
   tftp_read(sock, &farAddr);
-  sleep(2);
+  //sleep(2);
   
-  printf("Content of the file : \n\n");
+  //printf("Content of the file : \n\n");
   
   do {
-    size = recvfrom(sock, &packet, 512 + sizeof(packet.opcode) + sizeof(uint16_t), 0, (struct sockaddr *)&addr, &addr_len);
-//    printf("size after recvfrom = %d\n", size);
+    size = recvfrom(sock, &packet, MAX_DATA_SIZE + OPCODE_SIZE + BLOCKNUM_SIZE, 0, (struct sockaddr *)&addr, &addr_len);
+//  printf("size after recvfrom = %d\n", size);
     switch (packet.opcode) {
       case OP_DATA:
                     if ( *((uint16_t *)(packet.data)) == 1 ) // first data packet, we store the remote port
                       farAddr.sin_port = htons(addr.sin_port);
-//                    printf("== On ACK le packet ==\n");
+//                  printf("== On ACK le packet ==\n");
                     tftp_ack(sock, &farAddr, *((uint16_t *)(packet.data)));
-//                    printf("== On a ACK le packet ==\n");
-                    datasize = size - sizeof(packet.opcode) - sizeof(uint16_t);
-                    packet.data[datasize + sizeof(uint16_t)] = '\0';
-                    printf("%s\n", packet.data + sizeof(packet.opcode));
+//                  printf("== On a ACK le packet ==\n");
+                    datasize = size - OPCODE_SIZE - BLOCKNUM_SIZE;
+                    packet.data[datasize + BLOCKNUM_SIZE] = '\0';
+//                  printf("%s\n", packet.data + OPCODE_SIZE);
                     break;
       default:
                   datasize = 0;
@@ -131,7 +138,7 @@ rtems_task Init (rtems_task_argument ignored)
 //    printf("datasize = %d\n", datasize);
     size = 0;
 //    printf("size after zeroed = %d\n", size);
-  } while (datasize == 512);
+  } while (datasize == MAX_DATA_SIZE);
   
   sleep(3);
 
