@@ -39,15 +39,6 @@ struct tftp_packet {
   uint8_t data[MAX_DATA_SIZE + BLOCKNUM_SIZE];
 } __attribute__((packed));
 
-static void set_nonblock(int sock)
-{
-  int flags;
-  flags = fcntl(sock,F_GETFL,0);
-  assert(flags != -1);
-  fcntl(sock, F_SETFL, flags | O_NONBLOCK);
-}
-
-
 static void tftp_read(int sock, struct sockaddr_in *farAddr) {
   struct tftp_packet packet;
   int ret;
@@ -103,8 +94,6 @@ rtems_task Init (rtems_task_argument ignored)
       perror("socket:");
     assert(sock != -1);
 
-//set_nonblock(sock);
-
   memset(&farAddr, 0, sizeof farAddr);
   farAddr.sin_family = AF_INET;
   farAddr.sin_port = htons(TFTP_PORT);
@@ -114,11 +103,10 @@ rtems_task Init (rtems_task_argument ignored)
   tftp_read(sock, &farAddr);
   //sleep(2);
   
-  //printf("Content of the file : \n\n");
+  printf("Content of the file : \n\n");
   
   do {
     size = recvfrom(sock, &packet, MAX_DATA_SIZE + OPCODE_SIZE + BLOCKNUM_SIZE, 0, (struct sockaddr *)&addr, &addr_len);
-//  printf("size after recvfrom = %d\n", size);
     switch (packet.opcode) {
       case OP_DATA:
                     if ( *((uint16_t *)(packet.data)) == 1 ) // first data packet, we store the remote port
@@ -128,20 +116,15 @@ rtems_task Init (rtems_task_argument ignored)
 //                  printf("== On a ACK le packet ==\n");
                     datasize = size - OPCODE_SIZE - BLOCKNUM_SIZE;
                     packet.data[datasize + BLOCKNUM_SIZE] = '\0';
-//                  printf("%s\n", packet.data + OPCODE_SIZE);
+                    printf("%s", packet.data + OPCODE_SIZE);
                     break;
       default:
                   datasize = 0;
                   printf("ERROR, this opcode was not expected !\n");
     }
-//    printf("size = %d\n", size);
-//    printf("datasize = %d\n", datasize);
     size = 0;
-//    printf("size after zeroed = %d\n", size);
   } while (datasize == MAX_DATA_SIZE);
   
-  sleep(3);
-
   printf("\n\n== tftpclient test program END ==\n\n");
 
   exit(0);
