@@ -22,7 +22,7 @@
 #define MAX_DATA_SIZE 512
 #define OPCODE_SIZE sizeof(uint16_t)
 #define BLOCKNUM_SIZE sizeof(uint16_t)
-#define END_OF_STRING_SIZE  sizeof('\0')
+#define END_OF_STRING_SIZE  sizeof(uint8_t)
 
 #define TFTP_PORT 69
 
@@ -37,21 +37,30 @@
 struct tftp_packet {
   uint16_t opcode;
   uint8_t data[MAX_DATA_SIZE + BLOCKNUM_SIZE];
-} __attribute__((packed));
+} __attribute__((packed, aligned(4)));
 
 static void tftp_read(int sock, struct sockaddr_in *farAddr) {
   struct tftp_packet packet;
   int ret;
   ssize_t datasize, size;
-  
+  int i;
   packet.opcode = OP_READ;
-  strcpy(packet.data, TFTP_FILENAME);
-  strcpy(packet.data + strlen(TFTP_FILENAME) + END_OF_STRING_SIZE, "octet");
+  strncpy(packet.data, TFTP_FILENAME, strlen(TFTP_FILENAME) + 1);
+  strncpy(packet.data + strlen(TFTP_FILENAME) + END_OF_STRING_SIZE, "octet", strlen("octet") + 1);
   
   datasize = strlen(TFTP_FILENAME) + 2*END_OF_STRING_SIZE + strlen("octet");
   size = datasize + sizeof(packet.opcode);
 
-//printf("size = %d\n", size);
+  printf("size = %d\n", size);
+  printf("\n");
+  for (i = 0; i < size ; i++)
+    printf("0x%02X ", *((unsigned char *)&packet + i ) );
+
+  printf("\n");
+  
+  printf("strlen(TFTP_FILENAME) = %d ; strlen(\"octet\") = %d\n", strlen(TFTP_FILENAME), strlen("octet"));
+  printf("END_OF_STRING_SIZE = %d", END_OF_STRING_SIZE);
+  
   ret = sendto(sock, &packet, size, 0, (struct sockaddr *)farAddr, sizeof(struct sockaddr_in)); 
   if (ret == -1)
     perror("sendto:");
@@ -127,6 +136,12 @@ rtems_task Init (rtems_task_argument ignored)
   
   printf("\n\n== tftpclient test program END ==\n\n");
 
+
+  // we do not ACK the last tftp packet without this !
+  // FIXME: how do i flush the kernel buffers within BSD network stack ?
+  while (1) {
+    sleep(5);
+  }
   exit(0);
 }
 
