@@ -32,7 +32,15 @@
 
 // What file to read ?
 
-#define TFTP_FILENAME "sample.data"
+#define TFTP_FILENAME 	"sample.data"
+
+#define FILE_ASCII	"netascii"
+#define FILE_BINARY	"octet"
+
+
+// put FILE_ASCII for ascii file
+// put FILE_BINARY for binary file
+#define TFTP_FILE_TYPE	FILE_ASCII
 
 struct tftp_packet {
   uint16_t opcode;
@@ -46,9 +54,9 @@ static void tftp_read(int sock, struct sockaddr_in *farAddr) {
   int i;
   packet.opcode = OP_READ;
   strncpy(packet.data, TFTP_FILENAME, strlen(TFTP_FILENAME) + 1);
-  strncpy(packet.data + strlen(TFTP_FILENAME) + END_OF_STRING_SIZE, "octet", strlen("octet") + 1);
+  strncpy(packet.data + strlen(TFTP_FILENAME) + END_OF_STRING_SIZE, TFTP_FILE_TYPE, strlen(TFTP_FILE_TYPE) + 1);
   
-  datasize = strlen(TFTP_FILENAME) + 2*END_OF_STRING_SIZE + strlen("octet");
+  datasize = strlen(TFTP_FILENAME) + 2*END_OF_STRING_SIZE + strlen(FILE_ASCII);
   size = datasize + sizeof(packet.opcode);
 
   printf("size = %d\n", size);
@@ -58,7 +66,7 @@ static void tftp_read(int sock, struct sockaddr_in *farAddr) {
 
   printf("\n");
   
-  printf("strlen(TFTP_FILENAME) = %d ; strlen(\"octet\") = %d\n", strlen(TFTP_FILENAME), strlen("octet"));
+  printf("strlen(TFTP_FILENAME) = %d ; strlen(\"%s\") = %d\n", strlen(TFTP_FILENAME), TFTP_FILE_TYPE, strlen(TFTP_FILE_TYPE));
   printf("END_OF_STRING_SIZE = %d", END_OF_STRING_SIZE);
   
   ret = sendto(sock, &packet, size, 0, (struct sockaddr *)farAddr, sizeof(struct sockaddr_in)); 
